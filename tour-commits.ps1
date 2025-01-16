@@ -2,8 +2,8 @@
 # Config
 # -----------------------------
 $repoPath = "D:\office\test\AppData"
-$startDate = Get-Date "2025-01-19"
-$endDate = Get-Date "2025-01-24"
+$startDate = Get-Date "2025-01-17"  # starting date
+$endDate = Get-Date "2025-01-21"    # ending date
 
 # Standard commit messages for Tour Management System
 $commitMessages = @(
@@ -29,12 +29,22 @@ $commitMessages = @(
 # -----------------------------
 cd $repoPath
 
-# Check if .git exists
+# Check if .git exists, initialize if not
 if (-not (Test-Path ".git")) {
     Write-Host "Initializing git repository..."
     git init
     # Optional: set remote if not set
     # git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+}
+
+# -----------------------------
+# Auto-swap dates if startDate > endDate
+# -----------------------------
+if ($startDate -gt $endDate) {
+    $temp = $startDate
+    $startDate = $endDate
+    $endDate = $temp
+    Write-Host "Dates swapped. New startDate: $startDate, endDate: $endDate"
 }
 
 # -----------------------------
@@ -62,7 +72,7 @@ for ($date = $startDate; $date -le $endDate; $date = $date.AddDays(1)) {
         # Pick a random commit message
         $message = Get-Random -InputObject $commitMessages
 
-        # Commit with date
+        # Commit with random date
         git commit -m "$message" --date="$($commitDate.ToString("yyyy-MM-dd HH:mm:ss"))"
 
         # Push immediately
