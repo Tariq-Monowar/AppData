@@ -2,8 +2,8 @@
 # Config
 # -----------------------------
 $repoPath = "D:\office\test\AppData"
-$startDate = Get-Date "2025-03-02"  # starting date
-$endDate = Get-Date "2025-03-07"    # ending date
+$startDate = Get-Date "2025-03-09"  # starting date
+$endDate = Get-Date "2025-03-12"    # ending date
 
 # Standard commit messages for Tour Management System
 $commitMessages = @(
